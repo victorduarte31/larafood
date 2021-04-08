@@ -6,6 +6,11 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->group(function () {
         /*
+            Routes Profile
+        */
+        Route::resource('profiles', 'ACL\ProfileController');
+
+        /*
             Routes Details Plans
         */
         Route::get('plans/{url}/details/create', 'DetailPlanController@create')->name('details.plan.create');
