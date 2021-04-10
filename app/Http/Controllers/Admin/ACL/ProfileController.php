@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\ACL;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProfileRequest;
 use App\Models\Profile;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -40,7 +41,11 @@ class ProfileController extends Controller
 
     public function show($id)
     {
-        //
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.profiles.show', compact('profile'));
     }
 
     public function edit($id)
@@ -65,6 +70,28 @@ class ProfileController extends Controller
 
     public function destroy($id)
     {
-        //
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        $profile->delete();
+        return redirect()->route('profiles.index');
+    }
+
+
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');
+
+
+        $profiles = $this->repository->where(function ($query) use ($request) {
+            if ($request->filter) {
+                $query->where('name', $request->filter)->orWhere('description', 'LIKE', "%{$request->filter}%");
+            }
+
+        })->paginate();
+
+
+        return view('admin.pages.profiles.index', compact('profiles', 'filters'));
     }
 }

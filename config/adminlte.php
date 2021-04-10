@@ -234,6 +234,11 @@ return [
             'url'  => 'admin/profiles',
             'icon' => 'fas fa-address-book'
         ],
+        [
+            'text' => 'Pemissões',
+            'url'  => 'admin/permissions',
+            'icon' => 'fas fa-lock'
+        ],
     ],
 
     /*
