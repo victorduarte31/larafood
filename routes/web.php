@@ -5,26 +5,22 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')
     ->namespace('Admin')
     ->group(function () {
-
         /*
          *  Permission x Profile
          */
-
+        Route::post('profiles/{id}/permissions', 'ACL\PermissionProfileController@attachPermissionsProfile')->name('profiles.permissions.attach');
+        Route::get('profiles/{id}/permissions/create', 'ACL\PermissionProfileController@permissionsAvailable')->name('profiles.permissions.available');
         Route::get('profiles/{id}/permissions', 'ACL\PermissionProfileController@permissions')->name('profiles.permissions');
-
-
         /*
             Routes Permissions
         */
         Route::any('permissions/search', 'ACL\PermissionController@search')->name('permissions.search');
         Route::resource('permissions', 'ACL\PermissionController');
-
         /*
             Routes Profile
         */
         Route::any('profiles/search', 'ACL\ProfileController@search')->name('profiles.search');
         Route::resource('profiles', 'ACL\ProfileController');
-
         /*
             Routes Details Plans
         */
@@ -46,7 +42,6 @@ Route::prefix('admin')
         Route::delete('plans/{url}', 'PlanController@destroy')->name('plans.destroy');
         Route::put('plans/{url}', 'PlanController@update')->name('plans.update');
         Route::get('plans/{url}/edit', 'PlanController@edit')->name('plans.edit');
-
         /*
             Home Dashboard
         */

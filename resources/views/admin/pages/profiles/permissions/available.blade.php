@@ -8,9 +8,7 @@
         <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do perfil {{$profile->name}} <a class="btn btn-dark"
-                                                   href="{{route('profiles.permissions.available', $profile->id)}}"><i
-                class="fas fa-plus"></i> ADICIONAR NOVA PERMISSÃO</a></h1>
+    <h1>Permissões do perfil <strong>{{$profile->name}}</strong></h1>
 @stop
 
 @section('content')
@@ -28,21 +26,31 @@
             <table class="table table-condensed">
                 <thead>
                 <tr>
+                    <th width="50px">#</th>
                     <th>Nome</th>
-                    <th width="300">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($permissions as $permission)
+
+                @include('admin.includes.alerts')
+                <form action="{{route('profiles.permissions.attach', $profile->id)}}" method="post">
+                    @csrf
+                    @foreach($permissions as $permission)
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}">
+                            </td>
+                            <td>
+                                {{$permission->name}}
+                            </td>
+                        </tr>
+                    @endforeach
                     <tr>
-                        <td>
-                            {{$permission->name}}
-                        </td>
-                        <td style="width: 10px">
-                            <a href="{{route('profiles.edit', $profile->id)}}" class="btn btn-warning">Editar Perfil</a>
+                        <td colspan="500">
+                            <button class="btn btn-outline-success" type="submit">Vincular</button>
                         </td>
                     </tr>
-                @endforeach
+                </form>
                 </tbody>
             </table>
         </div>
