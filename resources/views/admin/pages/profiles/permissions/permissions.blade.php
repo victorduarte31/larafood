@@ -8,7 +8,7 @@
         <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do perfil {{$profile->name}} <a class="btn btn-dark"
+    <h1>Permissões do  {{$profile->name}} <a class="btn btn-dark"
                                                    href="{{route('profiles.permissions.available', $profile->id)}}"><i
                 class="fas fa-plus"></i> ADICIONAR NOVA PERMISSÃO</a></h1>
 @stop

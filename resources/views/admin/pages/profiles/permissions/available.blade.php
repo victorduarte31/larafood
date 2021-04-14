@@ -8,14 +8,14 @@
         <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do perfil <strong>{{$profile->name}}</strong></h1>
+    <h1>Permissões disponíveis para o <strong>{{$profile->name}}</strong></h1>
 @stop
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <form action="{{route('profiles.search')}}" method="post" class="form form-inline">
+            <form action="{{route('profiles.permissions.available', $profile->id)}}" method="post" class="form form-inline">
                 @csrf
                 <input type="text" class="form-control mr-1" name="filter" placeholder="Nome"
                        value="{{$filters['filter'] ?? ''}}">
