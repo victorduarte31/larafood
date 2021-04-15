@@ -36,7 +36,7 @@ class PermissionController extends Controller
     {
         $this->repository->create($request->all());
 
-        return redirect()->route('permissions.index');
+        return redirect()->route('profiles.index');
     }
 
     public function show($id)
@@ -64,7 +64,7 @@ class PermissionController extends Controller
         }
 
         $permission->update($request->all());
-        return redirect()->route('permissions.index');
+        return redirect()->route('profiles.index');
 
     }
 
@@ -75,7 +75,7 @@ class PermissionController extends Controller
         }
 
         $permission->delete();
-        return redirect()->route('permissions.index');
+        return redirect()->route('profiles.index');
     }
 
 

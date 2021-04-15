@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "Permissoes do perfil $profile->name")
+@section('title', "Perfis da Permissão $permission->name")
 
 @section('content_header')
     <ol class="breadcrumb">
@@ -8,9 +8,7 @@
         <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do  {{$profile->name}} <a class="btn btn-dark"
-                                                   href="{{route('profiles.profiles.available', $profile->id)}}"><i
-                class="fas fa-plus"></i> ADICIONAR NOVA PERMISSÃO</a></h1>
+    <h1>Perfis da Permissão  {{$permission->name}}
 @stop
 
 @section('content')
@@ -21,17 +19,17 @@
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th width="300">Ações</th>
+                    <th width="50">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($permissions as $permission)
+                @foreach($profiles as $profile)
                     <tr>
                         <td>
-                            {{$permission->name}}
+                            {{$profile->name}}
                         </td>
                         <td style="width: 10px">
-                            <a href="{{route('profiles.profiles.detach', [$profile->id, $permission->id])}}" class="btn btn-danger">Remover Permissão</a>
+                            <a class="btn btn-danger" href="{{route('profiles.profiles.detach', [$profile->id, $permission->id])}}">REMOVER</a>
                         </td>
                     </tr>
                 @endforeach
@@ -41,9 +39,9 @@
 
         <div class="card-footer">
             @if(isset($filters))
-                {{$permissions->appends($filters)->links("pagination::bootstrap-4")}}
+                {{$profiles->appends($filters)->links("pagination::bootstrap-4")}}
             @else
-                {{$permissions->links("pagination::bootstrap-4")}}
+                {{$profiles->links("pagination::bootstrap-4")}}
             @endif
         </div>
     </div>

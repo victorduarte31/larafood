@@ -1,16 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', "Permissoes do perfil $profile->name")
+@section('title', "Perfis do plano $plan->name")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
+        <li class="breadcrumb-item"><a href="{{route('plans.index')}}">Planos</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('plans.profiles', $plan->id)}}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do  {{$profile->name}} <a class="btn btn-dark"
-                                                   href="{{route('profiles.profiles.available', $profile->id)}}"><i
-                class="fas fa-plus"></i> ADICIONAR NOVA PERMISSÃO</a></h1>
+    <h1>Perfis do <strong>{{$plan->name}}</strong><a class="btn btn-dark"
+                                                     href="{{route('plans.profiles.available', $plan->id)}}"><i
+                class="fas fa-plus"></i> ADICIONAR NOVO PERFIL</a></h1>
 @stop
 
 @section('content')
@@ -25,13 +26,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($permissions as $permission)
+                @foreach($profiles as $profile)
                     <tr>
                         <td>
-                            {{$permission->name}}
+                            {{$profile->name}}
                         </td>
                         <td style="width: 10px">
-                            <a href="{{route('profiles.profiles.detach', [$profile->id, $permission->id])}}" class="btn btn-danger">Remover Permissão</a>
+                            <a href="{{route('plans.profile.detach', [$plan->id, $profile->id])}}"
+                               class="btn btn-danger">Remover Permissão</a>
                         </td>
                     </tr>
                 @endforeach
@@ -41,9 +43,9 @@
 
         <div class="card-footer">
             @if(isset($filters))
-                {{$permissions->appends($filters)->links("pagination::bootstrap-4")}}
+                {{$profiles->appends($filters)->links("pagination::bootstrap-4")}}
             @else
-                {{$permissions->links("pagination::bootstrap-4")}}
+                {{$profiles->links("pagination::bootstrap-4")}}
             @endif
         </div>
     </div>

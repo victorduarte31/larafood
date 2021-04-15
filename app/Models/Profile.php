@@ -16,6 +16,11 @@ class Profile extends Model
         return $this->belongsToMany(Permission::class);
     }
 
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class);
+    }
+
     public function permissionsAvailable($filter = null)
     {
         return Permission::whereNotIn('id', function ($query) {
@@ -25,7 +30,7 @@ class Profile extends Model
         })
             ->where(function ($queryFilter) use ($filter) {
                 if ($filter)
-                    $queryFilter->where('permissions.name', 'LIKE', "%{$filter}%");
+                    $queryFilter->where('profiles.name', 'LIKE', "%{$filter}%");
             })
             ->paginate();
     }

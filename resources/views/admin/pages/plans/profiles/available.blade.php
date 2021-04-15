@@ -1,21 +1,23 @@
 @extends('adminlte::page')
 
-@section('title', "Permissoes do perfil $profile->name")
+@section('title', "Perfis disponíveis do plano $plan->name")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Perfis</a></li>
+        <li class="breadcrumb-item"><a href="{{route('plans.index')}}">Planos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('plans.profiles', $plan->id)}}">Perfis</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('plans.profiles.available', $plan->id)}}">Disponíveis</a></li>
     </ol>
 
-    <h1>Permissões disponíveis para o <strong>{{$profile->name}}</strong></h1>
+    <h1>Perfis disponíveis para o <strong>{{$plan->name}}</strong></h1>
 @stop
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <form action="{{route('profiles.profiles.available', $profile->id)}}" method="post" class="form form-inline">
+            <form action="{{route('plans.profiles.available', $plan->id)}}" method="post" class="form form-inline">
                 @csrf
                 <input type="text" class="form-control mr-1" name="filter" placeholder="Nome"
                        value="{{$filters['filter'] ?? ''}}">
@@ -33,15 +35,15 @@
                 <tbody>
 
                 @include('admin.includes.alerts')
-                <form action="{{route('profiles.profiles.attach', $profile->id)}}" method="post">
+                <form action="{{route('plans.profiles.attach', $plan->id)}}" method="post">
                     @csrf
-                    @foreach($permissions as $permission)
+                    @foreach($profiles as $profile)
                         <tr>
                             <td>
-                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}">
+                                <input type="checkbox" name="profiles[]" value="{{$profile->id}}">
                             </td>
                             <td>
-                                {{$permission->name}}
+                                {{$profile->name}}
                             </td>
                         </tr>
                     @endforeach
@@ -57,9 +59,9 @@
 
         <div class="card-footer">
             @if(isset($filters))
-                {{$permissions->appends($filters)->links("pagination::bootstrap-4")}}
+                {{$profiles->appends($filters)->links("pagination::bootstrap-4")}}
             @else
-                {{$permissions->links("pagination::bootstrap-4")}}
+                {{$profiles->links("pagination::bootstrap-4")}}
             @endif
         </div>
     </div>

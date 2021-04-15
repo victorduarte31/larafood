@@ -36,7 +36,7 @@ class PermissionProfileController extends Controller
     {
 
         if (!$profile = $this->profile->find($idProfile)) {
-            return redirect()->bak();
+            return redirect()->back();
         }
 
         $filters = $request->filter;
@@ -49,7 +49,7 @@ class PermissionProfileController extends Controller
     public function attachPermissionsProfile(Request $request, $idProfile)
     {
         if (!$profile = $this->profile->find($idProfile)) {
-            return redirect()->bak();
+            return redirect()->back();
         }
 
         if (!$request->permissions || count($request->permissions) == 0) {
@@ -57,7 +57,32 @@ class PermissionProfileController extends Controller
         }
 
         $profile->permissions()->attach($request->permissions);
-        return redirect()->route('profiles.permissions', $profile->id);
+        return redirect()->route('profiles.profiles', $profile->id);
+    }
+
+    public function detachPermissionsProfile($idProfile, $idPermission)
+    {
+        $profile = $this->profile->find($idProfile);
+        $permission = $this->permission->find($idPermission);
+
+        if (!$profile || !$permission) {
+            return redirect()->back();
+        }
+
+        $profile->permissions()->detach($permission);
+        return redirect()->route('profiles.profiles', $profile->id);
+
+    }
+
+    public function profiles($idPermission)
+    {
+        if (!$permission = $this->permission->find($idPermission)) {
+            return redirect()->back();
+        }
+
+        $profiles = $permission->profiles()->paginate();
+
+        return view('admin.pages.permissions.profiles.profiles', compact('profiles', 'permission'));
     }
 
 }
