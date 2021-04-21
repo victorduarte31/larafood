@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
     ->namespace('Admin')
+    ->middleware('auth')
     ->group(function () {
 
         /*
@@ -60,3 +61,10 @@ Route::prefix('admin')
         Route::get('/', 'PlanController@index')->name('admin.index');
 
     });
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
