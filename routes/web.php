@@ -62,6 +62,7 @@ Route::prefix('admin')
 
     });
 
+Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
