@@ -10,7 +10,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{route('profiles.store')}}" class="form" method="post">
+            <form action="{{route('permissions.store')}}" class="form" method="post">
 
                 @include('admin.pages.permissions._partials.form')
             </form>

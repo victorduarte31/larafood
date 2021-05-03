@@ -10,7 +10,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{route('profiles.update', $permission->id)}}" class="form" method="post">
+            <form action="{{route('permissions.update', $permission->id)}}" class="form" method="post">
                 @method('PUT')
                 @include('admin.pages.permissions._partials.form')
             </form>

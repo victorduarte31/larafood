@@ -5,10 +5,10 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('profiles.index')}}">Permissões</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('permissions.index')}}">Permissões</a></li>
     </ol>
 
-    <h1>Permissões <a class="btn btn-dark" href="{{route('profiles.create')}}"><i class="fas fa-plus"></i> Adicionar nova Permissão </a></h1>
+    <h1>Permissões <a class="btn btn-dark" href="{{route('permissions.create')}}"><i class="fas fa-plus"></i> Adicionar nova Permissão </a></h1>
 @stop
 
 @section('content')
