@@ -62,9 +62,11 @@ Route::prefix('admin')
 
     });
 
+Route::get('/', 'Site\SiteController@index')->name('site.home');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
