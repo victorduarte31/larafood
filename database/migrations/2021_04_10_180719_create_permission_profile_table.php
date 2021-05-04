@@ -14,11 +14,11 @@ class CreatePermissionProfileTable extends Migration
     public function up()
     {
         Schema::create('permission_profile', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('profile_id');
 
-            $table->foreign('permission_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
         });
     }
